@@ -1,64 +1,70 @@
-const dog = {
-  type: "dog",
-  name: "Barley",
-  gender: "male",
-  legs: 4,
-  hasTail: true,
-  saying: "gav-gav"
-};
+class inhobitant{
+  constructor(name,gender,phrase){
+    this.name = name;
+    this.gender = gender;
+    this.sayPhrase = phrase;
+  }
+  saying(){
+    print(this.sayPhrase);
+  }
+}
 
-const cat = {
-  type: "cat",
-  name: "Rude",
-  gender: "male",
-  legs: 4,
-  hasTail: true,
-  saying: "Kottans are the best!"
-};
+class pet extends inhobitant {
+  constructor(name,gender,phrase,isHungry){
+    super(name,gender,phrase);
+    this.isHungry = isHungry;
+  }
+  askForFood(){
+    print("I want to eat!");
+  }
+}
 
-const man = {
-  type: "human",
-  name: "Alex",
-  gender: "male",
-  legs: 2,
-  hasTail: false,
-  saying: "I want to start learning frontend development!"
-};
+class human extends inhobitant {
+  constructor(name,gender,phrase,dish){
+    super(name,gender,phrase);
+    this.favoriteDish = dish;
+  }
+  giveFoodToPet(petObj){
+    if(petObj.isHungry === true){
+      petObj.isHungry = false;
+    } else {
+      print("You are not hungry!")
+    }
+  }
+}
 
-const woman = {
-  type: "human",
-  name: "Meggy",
-  gender: "female",
-  legs: 2,
-  hasTail: false,
-  saying: "Hello,Alex."
-};
+class metaHuman extends inhobitant {
+  constructor(name,gender,phrase,superPower){
+    super(name,gender,phrase);
+    this.superPower = superPower;
+    this.friends = " ";
+  }
+  getFriend(objFriend){
+    this.friends += objFriend.name;
+  }
+}
+const inhobitants = [
+  new pet("Rude","male","Meeeooow!",true),
+  new pet("Barley","male","Gav-gav",true),
+  new human("Alex","male","I am studying frontend at Kottans!","Pizza"),
+  new human("Meggy","female","Kottans - one love!","Ice сream"),
+  new metaHuman("woman-Cat","female","Meow, can i join Kottans?","Invisibilty")
+]
 
-const womanCat = {
-  type: "human-cat",
-  name: "woman Cat",
-  gender: "female",
-  legs: 2,
-  hasTail: true,
-  saying: "Meow,Kottans are the best of the best!"
-};
-
-[dog, cat, man, woman, womanCat].forEach(inhobitant =>
+inhobitants.forEach(inhobitant =>
   print(objectsToString(inhobitant))
 );
 
+console.log(pet.name);
 function objectsToString(obj) {
     let objectAsString = "";
     for (prop in obj) {
-      if (prop === "saying") {
-        objectAsString += prop + ' : "' + obj[prop] + '"';
-        break;
-      } else if (prop === "hasTail" || prop === "legs") {
-        objectAsString += prop + " : " + obj[prop] + ", ";
+      if (prop === "sayPhrase"){
+        objectAsString +=prop + ":\'" + obj[prop] + "!\', ";
         continue;
       }
-      objectAsString += obj[prop] + ", ";
-    }
-    return objectAsString + ";";
-  }
-  
+      objectAsString += prop + " : " + obj[prop] + ", ";
+    }      
+    return objectAsString.slice(0,objectAsString.length - 2) + ";";
+  };
+   
